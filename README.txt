@@ -1,4 +1,4 @@
 before you go to sleep, say lil prayyer
-INI AUREL CAKEP, hai
-test
-WOI
+woi
+
+halo saya hey tayo
