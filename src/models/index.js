@@ -5,21 +5,13 @@ const mongoose = require('mongoose');
 const config = require('../core/config');
 const logger = require('../core/logger')('app');
 
-// Join the database connection string
-const connectionString = new URL(config.database.connection);
-connectionString.pathname += config.database.name;
-
-mongoose.connect(`${connectionString.toString()}`);
-
-const db = mongoose.connection;
-db.once('open', () => {
-  logger.info('Successfully connected to MongoDB');
-});
-
 const dbExports = {};
-dbExports.db = db;
-
 const basename = path.basename(__filename);
+let connectionPromise = null;
+
+mongoose.connection.on('error', (error) => {
+  logger.error({ err: error }, 'MongoDB connection error');
+});
 
 fs.readdirSync(__dirname)
   .filter(
@@ -31,5 +23,41 @@ fs.readdirSync(__dirname)
     const model = require(path.join(__dirname, file))(mongoose);
     dbExports[model.modelName] = model;
   });
+
+async function connectDatabase() {
+  if (connectionPromise) {
+    return connectionPromise;
+  }
+
+  if (!config.database.connection) {
+    throw new Error('DB_CONNECTION is not configured in .env');
+  }
+
+  const options = {};
+
+  if (config.database.name) {
+    options.dbName = config.database.name;
+  }
+
+  connectionPromise = mongoose
+    .connect(config.database.connection, options)
+    .then(({ connection }) => {
+      logger.info(
+        `Successfully connected to MongoDB${
+          config.database.name ? ` (${config.database.name})` : ''
+        }`
+      );
+      return connection;
+    })
+    .catch((error) => {
+      connectionPromise = null;
+      throw error;
+    });
+
+  return connectionPromise;
+}
+
+dbExports.db = mongoose.connection;
+dbExports.connectDatabase = connectDatabase;
 
 module.exports = dbExports;

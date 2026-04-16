@@ -1,11 +1,11 @@
 {
-  "singleQuote": true,
-  "printWidth": 80,
-  "tabWidth": 2,
-  "useTabs": false,
-  "semi": true,
-  "quoteProps": "consistent",
-  "trailingComma": "es5",
+  "singleQuote": true, //ini buat tanda petik hanya 1
+  "printWidth": 80, //ini buat maksimal karakter dalam 1 baris
+  "tabWidth": 2, //ini buat spasi yang digunakan untuk indentasi
+  "useTabs": false, //ini buat menggunakan spasi untuk indentasi, bukan tab
+  "semi": true, //ini buat menambahkan titik koma di akhir setiap statement
+  "quoteProps": "consistent", //ini buat menentukan kapan harus menggunakan tanda petik untuk properti objek
+  "trailingComma": "es5", //ini buat menambahkan koma di akhir elemen terakhir dalam array atau objek jika ada lebih dari satu elemen 
   "bracketSpacing": true,
   "arrowParens": "always",
   "endOfLine": "lf"

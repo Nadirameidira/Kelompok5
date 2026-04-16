@@ -1,13 +1,11 @@
 const express = require('express');
-
-const books = require('./components/books/books-route');
-const users = require('./components/users/users-route');
+const transactions = require('./components/transactions/transactions-route');
 
 module.exports = () => {
   const app = express.Router();
 
-  books(app);
-  users(app);
+  // Mendaftarkan rute dari folder transactions
+  transactions(app);
 
   return app;
 };
