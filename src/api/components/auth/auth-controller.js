@@ -6,7 +6,6 @@ async function login(request, response, next) {
   try {
     const { email, password } = request.body;
     
-    // Validasi input
     if (!email || !password) {
       throw errorResponder(
         errorTypes.VALIDATION_ERROR,
@@ -46,9 +45,8 @@ async function getProfile(request, response, next) {
 async function updatePassword(request, response, next) {
   try {
     const { old_password, new_password, confirm_new_password } = request.body;
-    const user = request.user; // Dari Passport
+    const user = request.user;
     
-    // Validasi input
     if (!old_password || !new_password || !confirm_new_password) {
       throw errorResponder(
         errorTypes.VALIDATION_ERROR,
@@ -56,7 +54,6 @@ async function updatePassword(request, response, next) {
       );
     }
     
-    // Password minimal 8 karakter
     if (new_password.length < 8) {
       throw errorResponder(
         errorTypes.VALIDATION_ERROR,
@@ -64,15 +61,13 @@ async function updatePassword(request, response, next) {
       );
     }
     
-    // Password baru dan konfirmasi harus sama
     if (new_password !== confirm_new_password) {
       throw errorResponder(
         errorTypes.VALIDATION_ERROR,
         'New password and confirm password do not match'
       );
     }
-    
-    // Verifikasi old password
+
     const isPasswordValid = await passwordMatched(old_password, user.password);
     
     if (!isPasswordValid) {
@@ -82,11 +77,9 @@ async function updatePassword(request, response, next) {
       );
     }
     
-    // Hash password baru
     const { hashPassword } = require('../../../utils/password');
     const hashedPassword = await hashPassword(new_password);
     
-    // Update password
     const { Users } = require('../../../models');
     await Users.updateOne({ _id: user._id }, { $set: { password: hashedPassword } });
     

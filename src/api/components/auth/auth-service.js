@@ -17,10 +17,9 @@ function generateToken(email) {
 
 async function checkLogin(email, password) {
   const user = await authRepository.getUserByEmail(email);
-  // tetep harus cek pass walopun gaada
 
   const userPass = user ? user.password : '<RANDOM> ';
-  // kalo gaad password kasih random
+  
   const loginPassed = await passwordMatched(password, userPass);
 
   if (user && loginPassed) {
