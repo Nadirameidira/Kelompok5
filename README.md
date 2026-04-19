@@ -1,18 +1,50 @@
-# Backend Programming Template (2025)
+# REST API (KASIR), KELOMPOK 5
 
-## Development Setup
+### NAMA ANGGOTA KELOMPOK :
+535250061 Lulu Lydia Andrean 
+535250066 Meisa Putri Nadira
+535250074 Stesa Aurel Titania
+535250088 Aurelian Alfreda
+535250091 Dimas Pradana Siddharta Halim
 
-1. Fork and clone this repository to your local computer.
-2. Open the project using VS Code.
-3. Install the recommended VS Code extensions: `ESLint` and `Prettier`.
-4. Copy and rename `.env.example` to `.env`. Open `.env` and change the database connection string.
-5. Run `npm install` to install the project dependencies.
-6. Run `npm run dev` to start the dev server.
-7. Test the endpoints in the API client app.
+## PENJELASAN END POINT
 
-## Add New API Endpoints
+### A. Keamanan & User (/api/auth & /api/users) - Meisa 
+Auth:
+● POST /api/auth/register: Pendaftaran kasir baru. 
+● POST /api/auth/login: Autentikasi dan mendapatkan Token JWT. 
+Users: 
+● GET /api/users/profile: Mengambil data profil user yang sedang login. 
+● PUT /api/users/update-password: Mengganti password user untuk keamanan. 
 
-1. Create a new database schema in `./src/models`.
-2. Create a new folder in `./src/api/components` (if needed). Remember to separate your codes to repositories, services, controllers, and routes.
-3. Add the new route in `./src/api/routes.js`.
-4. Test your new endpoints in the API client app.
+### B. Inventori & Produk (/api/products) - Stesa 
+Manajemen Produk: 
+● GET /api/products: Menampilkan semua produk (dengan filter kategori/nama). 
+● POST /api/products: Menambahkan produk baru ke sistem. 
+Update & Kontrol: 
+● PUT /api/products/:id: Memperbarui detail produk, harga, atau stok. 
+● DELETE /api/products/:id: Menghapus produk dari daftar aktif. 
+
+### C.Master Data & Supplier (/api/categories & /api/suppliers) - Lulu 
+Kategori: 
+● GET /api/categories: Melihat daftar kategori (Makanan, Minuman, dll). 
+● POST /api/categories: Menambah kategori baru. 
+Supplier: 
+● GET /api/suppliers: Melihat daftar partner supplier. 
+● POST /api/suppliers: Menambah data supplier baru. 
+ 
+### D. Transaksi (/api/transactions)  - Dimas  
+Operasional Kasir: 
+● POST /api/transactions/checkout: Memproses pembayaran dan mengurangi stok otomatis. 
+● GET /api/transactions/history: Melihat riwayat seluruh transaksi yang pernah dilakukan. 
+Detail & Bukti: 
+● GET /api/transactions/:id: Melihat detail item dalam satu transaksi tertentu (untuk cetak struk). 
+● DELETE /api/transactions/:id: Membatalkan transaksi (void) jika ada kesalahan input. 
+
+### E. Analitik & Pelanggan (/api/reports & /api/customers) - Aurelian 
+Laporan (Analytics): 
+● GET /api/reports/daily: Rekap total pendapatan dan jumlah transaksi hari ini. 
+● GET /api/reports/low-stock: Daftar produk yang stoknya di bawah ambang batas (alert). 
+Manajemen Pelanggan: 
+● GET /api/customers: Melihat daftar member/pelanggan tetap. 
+● POST /api/customers: Registrasi member baru untuk program loyalitas/diskon.
