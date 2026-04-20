@@ -14,10 +14,10 @@ async function getDailyTransactions() {
   const end = new Date();
   end.setHours(23, 59, 59, 999);
 
-  // transaction_date & status: 'success' sesuai schema Dimas
+  // transaction_date & status: 'success'
   return Transactions.find({
     transaction_date: { $gte: start, $lte: end },
-    status: 'success'
+    status: 'success!'
   });
 }
 

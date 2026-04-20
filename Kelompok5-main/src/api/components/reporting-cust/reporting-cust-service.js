@@ -10,7 +10,6 @@ async function getAllCustomers() {
 
 async function getDailyReport() {
   const transactions = await repository.getDailyTransactions();
-  // total_price sesuai schema Dimas
   const totalRevenue = transactions.reduce((acc, curr) => acc + (curr.total_price || 0), 0);
 
   return {
