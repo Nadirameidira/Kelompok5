@@ -32,4 +32,7 @@ async function checkLogin(email, password) {
   return null;
 }
 
-module.exports = { checkLogin };
+module.exports = { 
+  checkLogin,
+  generateToken
+ };
