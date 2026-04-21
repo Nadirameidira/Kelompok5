@@ -27,6 +27,9 @@ async function changePassword(id, password) {
 async function deleteUser(id) {
   return Users.deleteOne({ _id: id });
 }
+async function updatePassword(Id, hashedPassword) {
+  return Users.updateOne( { _id: Id }, { $set: { password: hashedPassword } } );
+}
 
 module.exports = {
   getUsers,
@@ -36,4 +39,5 @@ module.exports = {
   updateUser,
   changePassword,
   deleteUser,
+  updatePassword,
 };
