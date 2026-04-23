@@ -1,6 +1,7 @@
 const usersService = require('./users-service');
 const { errorResponder, errorTypes } = require('../../../core/errors');
 const { hashPassword } = require('../../../utils/password');
+const { get } = require('mongoose');
 
 async function getUsers(request, response, next) {
   try {
@@ -191,9 +192,35 @@ async function deleteUser(request, response, next) {
   }
 }
 
+async function getProfile(request, response, next) {
+  try {
+    const user = request.user;
+    return response.status(200).json({
+      id: user._id,
+      email: user.email,
+      full_name: user.fullName,
+    });
+  } catch (error) {
+    return next(error);
+  }
+}
+
+async function getCashiers(request, response, next) {
+  try {
+    const { Users } = require('../../../models');
+    const cashiers = await Users.find({ role: 'cashier' }).select('-password');
+    return response.status(200).json(cashiers);
+  } catch (error) {
+    return next(error);
+  }
+}
+
+
 module.exports = {
   getUsers,
   getUser,
+  getProfile,
+  getCashiers,
   createUser,
   updateUser,
   changePassword,

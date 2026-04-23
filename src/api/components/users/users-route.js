@@ -1,11 +1,16 @@
 const express = require('express');
 
 const usersController = require('./users-controller');
+const { authMiddleware } = require('../../middlewares');
 
 const route = express.Router();
 
 module.exports = (app) => {
   app.use('/users', route);
+
+ route.get('/profile', authMiddleware, usersController.getProfile);
+ 
+  route.get('/cashiers', authMiddleware, usersController.getCashiers);
 
   // Get list of users
   route.get('/', usersController.getUsers);
