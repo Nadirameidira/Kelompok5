@@ -5,6 +5,8 @@ const auth = require('./components/auth/auth-route');
 const products = require('./components/products/productManage-route');
 const users = require('./components/users/users-route');
 const reportingCust = require('./components/reporting-cust/reporting-cust-route');
+const categories = require('./components/categories/categories-route');
+const supplier = require('./components/supplier/supplier-route');
 
 
 
@@ -17,6 +19,8 @@ module.exports = () => {
   products(app);
   users(app);
   reportingCust(app);
+  categories(app);
+  supplier(app);
   return app;
 };
 
