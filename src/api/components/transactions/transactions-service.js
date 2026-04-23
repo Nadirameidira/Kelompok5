@@ -15,7 +15,7 @@ async function createTransaction(transactionsData) {
     throw errorResponder(errorTypes.BAD_REQUEST, 'Data transaksi tidak valid');
   }
 }
-// 3. Melihat detail item dalam satu transaksi tertentu
+//3.Melihat detail item dalam satu transaksi tertentu
 async function getTransactionById(id) {
   const transaction = await transactionsRepository.getTransactionById(id);
   if (!transaction) {
@@ -25,7 +25,7 @@ async function getTransactionById(id) {
   return transaction;
 }
 
-// 4.ini buat membatalkan transaksi
+//4.ini buat membatalkan transaksi
 async function deleteTransaction(id) {
   const transaction = await transactionsRepository.getTransactionById(id);
   
