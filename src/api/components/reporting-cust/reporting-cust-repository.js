@@ -1,4 +1,4 @@
-const { Customers, Transactions, Books } = require('../../../models');
+const { Customers, Transactions, Products } = require('../../../models');
 
 async function createCustomer(data) {
   return Customers.create(data);
@@ -22,7 +22,7 @@ async function getDailyTransactions() {
 }
 
 async function getLowStockProducts() {
-  return Books.find({ stock: { $lt: 10 } }); 
+  return Products.find({ stock: { $lt: 10 } }); 
 }
 
 module.exports = {
